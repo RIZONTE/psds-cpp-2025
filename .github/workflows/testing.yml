@@ -1,0 +1,49 @@
+name: Testing Tasks
+
+on: [push]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install compiler and CMake
+        run: sudo apt install -y cmake build-essential g++-14 libgtest-dev libgmock-dev
+
+      - name: Configure project
+        run: cmake -B build
+
+      - name: Build and run tests for changed tasks
+        run: |
+        
+          # Проверяем, есть ли предыдущий коммит
+          if git rev-parse HEAD~1 > /dev/null 2>&1; then
+            changed_files=$(git diff --name-only HEAD~1 HEAD)
+          else
+            changed_files=$(git ls-files)
+          fi
+          
+          echo "Changed files: $changed_files"
+          
+          tasks=("addition" "rms" "print_bits" "check_flags" "length_lit" "quadratic" "char_changer")
+          
+          for task in "${tasks[@]}"; do
+            if echo "$changed_files" | grep -q "$task/"; then
+              echo "=== Processing $task ==="
+          
+              if cmake --build build --target test_$task; then
+                echo "✅ test_$task built successfully"
+                
+                if ./build/tasks/test_$task; then
+                  echo "✅ test_$task PASSED"
+                else
+                  echo "❌ test_$task FAILED"
+                  exit 1
+                fi
+              else
+                echo "❌ test_$task build FAILED"
+                exit 1
+              fi
+            fi
+          done
