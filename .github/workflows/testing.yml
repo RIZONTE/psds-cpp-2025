@@ -1,6 +1,6 @@
 name: Testing Tasks
 
-#on: [push]
+on: [push]
 
 jobs:
   test:
