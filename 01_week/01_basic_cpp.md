@@ -571,7 +571,7 @@ auto rs = R"(popular escape-sequences in "C++" '\n' '\t')"; // const char*
 
 1. -> : `a::b`
 2. -> : `a++`, `a--`, `<type>(a)`, `<type>{a}`, `a()`, `a[]`, `a.b`, `a->b`
-3. <- : `++a`, `--a`, `+a`, `-a`, `!a`, `(<type>)a`, `*a`, `&a`, `sizeof`, 
+3. <- : `++a`, `--a`, `+a`, `-a`, `!a`, `~a` `(<type>)a`, `*a`, `&a`, `sizeof`, 
    `new`, `delete`
 4. -> : `a.*b`, `a->*b`
 5. -> : `a * b`, `a / b`, `a % b`

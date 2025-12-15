@@ -28,7 +28,8 @@ jobs:
           echo "$changed_files"
           
           tasks=("addition" "rms" "print_bits" "check_flags" "length_lit" "quadratic" "char_changer"
-                 "swap_ptr" "func_array" "longest" "last_of_us" "little_big" "pretty_array")
+                 "swap_ptr" "func_array" "longest" "last_of_us" "little_big" "pretty_array"
+                 "data_stats" "unique" "range" "find_all" "os_overload" "easy_compare" "filter" "enum_operators")
           
           declare -i passed_count=0
           declare -i failed_count=0

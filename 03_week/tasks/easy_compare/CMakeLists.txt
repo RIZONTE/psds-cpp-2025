@@ -1,0 +1,1 @@
+add_gtest(test_easy_compare test.cpp)
