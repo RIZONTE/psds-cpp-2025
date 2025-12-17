@@ -12,9 +12,6 @@ enum class CheckFlags : uint8_t {
     ALL = TIME | DATE | USER | CERT | KEYS | DEST
 };
 
-// ! ! 0 0 0 0 0 0
-// 7 6 5 4 3 2 1 0
-
 CheckFlags operator|(const CheckFlags& lhs, const CheckFlags& rhs) {
     uint8_t res = static_cast<uint8_t>(lhs) | static_cast<uint8_t>(rhs);
     res = res & static_cast<uint8_t>(CheckFlags::ALL);
@@ -63,8 +60,6 @@ std::ostream& operator<<(std::ostream& os, const CheckFlags& flags) {
             result.push_back(flagStr[flag]);
         }
     }
-
-    //if(!result.empty()) result.pop_back();       //Убираем лишнюю запятую
 
     for(auto& elem : result) os << elem;
 
