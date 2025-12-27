@@ -30,78 +30,78 @@ private:
 
 
 Queue::Queue(std::stack<int>& stack) {
-    out.reserve(stack.size() * 1.2);
+    out_.reserve(stack.size() * 1.2);
     while(!(stack.empty())){
-        out.push_back(stack.top());
+        out_.push_back(stack.top());
         stack.pop();
     }
 }
 Queue::Queue(const std::vector<int>& vec) {
-    out.reserve(vec.size() * 1.5);
-    out.insert(out.end(), vec.rbegin(), vec.rend());
+    out_.reserve(vec.size() * 1.5);
+    out_.insert(out_.end(), vec.rbegin(), vec.rend());
 }
 Queue::Queue(std::initializer_list<int> list) {
-    out.reserve(list.size() * 1.5);
+    out_.reserve(list.size() * 1.5);
     for(auto it = std::rbegin(list); it != std::rend(list); ++it){
-        out.push_back(*it);
+        out_.push_back(*it);
     }
 }
 Queue::Queue(size_t size) {
-    out.reserve(size);
-    in.reserve(size);
+    out_.reserve(size);
+    in_.reserve(size);
 }
 
 void Queue::Push(int value){
-    in.push_back(value);
+    in_.push_back(value);
 }
 bool Queue::Pop(){
-    if(in.empty() && out.empty()) return false;
-    if(out.empty() && !(in.empty())){
-        while(!(in.empty())){
-            out.push_back(in.back());
-            in.pop_back();
+    if(in_.empty() && out_.empty()) return false;
+    if(out_.empty() && !(in_.empty())){
+        while(!(in_.empty())){
+            out_.push_back(in_.back());
+            in_.pop_back();
         }
     }
-    out.pop_back();
+    out_.pop_back();
     return true;
 }
 int& Queue::Front() {
-    if(out.empty()) return in.front();
-    return out.back();
+    if(out_.empty()) return in_.front();
+    return out_.back();
 }
 int& Queue::Back() {
-    if(in.empty()) return out.front();
-    return in.back();
+    if(in_.empty()) return out_.front();
+    return in_.back();
 }
 const int& Queue::Front() const {
-    if(out.empty()) return in.front();
-    return out.back();
+    if(out_.empty()) return in_.front();
+    return out_.back();
 }
 const int& Queue::Back() const {
-    if(in.empty()) return out.front();
-    return in.back();
+    if(in_.empty()) return out_.front();
+    return in_.back();
 }
 bool Queue::Empty() const {
-    if(in.empty() && out.empty()) return true;
+    if(in_.empty() && out_.empty()) return true;
     return false;
 }
 size_t Queue::Size() const {
-    return in.size() + out.size();
+    return in_.size() + out_.size();
 }
 void Queue::Clear() {
-    in.clear();
-    out.clear();
+    in_.clear();
+    out_.clear();
 }
 void Queue::Swap(Queue& other) {
-    in.swap(other.in);
-    out.swap(other.out);
+    in_.swap(other.in_);
+    out_.swap(other.out_);
 }
 
 bool Queue::operator==(const Queue& rhs) const {
-    std::vector<int> tmp_lhs(this->in.rbegin(), this->in.rend());
-    tmp_lhs.insert(tmp_lhs.end(), this->out.begin(), this->out.end());
-    std::vector<int> tmp_rhs(rhs.in.rbegin(), rhs.in.rend());
-    tmp_rhs.insert(tmp_rhs.end(), rhs.out.begin(), rhs.out.end());
+    std::vector<int> tmp_lhs(this->in_.rbegin(), this->in_.rend());
+    tmp_lhs.insert(tmp_lhs.end(), this->out_.begin(), this->out_.end());
+    std::vector<int> tmp_rhs(rhs.in_.rbegin(), rhs.in_.rend());
+    tmp_rhs.insert(tmp_rhs.end(), rhs.out_.begin(), rhs.out_.end());
 
     return tmp_lhs == tmp_rhs;
 }
